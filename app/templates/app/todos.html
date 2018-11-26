@@ -12,10 +12,20 @@
         <input type='text' class='form-control' name='title' maxlength="31" required>
         <button>Don't Forget</button>
     </form>
+    <hr class='line-dividers'>
+
+    <hr class='line-dividers'>
     <ul>
         {% for todo in todos %}
         <li>{{todo.title}}</li>
         {% endfor %}
     </ul>
 </body>
+
+<style>
+    .line-dividers {
+        color: lightgray;
+        opacity: 0.25;
+    }
+</style>
 </html>
