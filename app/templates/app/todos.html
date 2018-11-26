@@ -17,7 +17,14 @@
     <hr class='line-dividers'>
     <ul>
         {% for todo in todos %}
-        <li>{{todo.title}}</li>
+        <li>
+        <div class='d-flex spaced'>
+            <button>edit</button>
+            <p>{{todo.title}}</p>
+            <button>toggle complete</button>
+            <button>delete</button>
+        </div>
+        </li>
         {% endfor %}
     </ul>
 </body>
@@ -27,5 +34,12 @@
         color: lightgray;
         opacity: 0.25;
     }
+    .d-flex {
+        display: flex;
+    }
+    .spaced {
+        justify-content: space-between;
+    }
+
 </style>
 </html>
