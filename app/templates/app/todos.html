@@ -31,13 +31,28 @@
                 <button class="btn-danger btn">Don't Forget</button>
             </form>
         </div>
-        <hr class="line-dividers" />
-
-        <hr class="line-dividers" />
+        <div class="container">
+            <hr class="" />
+            <div class="container d-flex">
+                <form method="GET" action="{% url 'app:todos' %}">
+                    <input type="hidden" name="filter" value="ALL" />
+                    <button class="btn btn-primary mr-2">All</button>
+                </form>
+                <form method="GET" action="{% url 'app:todos' %}">
+                    <input type="hidden" name="filter" value="ACTIVE" />
+                    <button class="btn btn-primary mr-2">Active</button>
+                </form>
+                <form method="GET" action="{% url 'app:todos' %}">
+                    <input type="hidden" name="filter" value="COMPLETED" />
+                    <button class="btn btn-primary mr-2">Completed</button>
+                </form>
+            </div>
+            <hr class="" />
+        </div>
         <ul>
             {% for todo in todos %}
             <li class="container">
-                <hr />
+                <hr class="border-secondary" />
                 <div class="d-flex justify-content-between">
                     <form
                         method="POST"
@@ -60,7 +75,9 @@
                             size="24"
                             required
                         />
-                        <button class="btn btn-primary"><span class='border-bottom border-white'>⬇</span></button>
+                        <button class="btn btn-primary">
+                            <span class="border-bottom border-white">⬇</span>
+                        </button>
                     </form>
                     {% elif todo.editing is False %}
                     <p class="container">{{ todo.title }}</p>
@@ -92,10 +109,6 @@
     </body>
 
     <style>
-        .line-dividers {
-            color: lightgray;
-            opacity: 0.25;
-        }
         li {
             list-style: none;
         }
