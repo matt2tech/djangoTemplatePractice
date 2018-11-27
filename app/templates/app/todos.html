@@ -12,7 +12,7 @@
         />
         <title>Document</title>
     </head>
-    <body class="container">
+    <body class="container p-3">
         <form
             method="POST"
             action="{% url 'app:create' %}"
@@ -24,7 +24,7 @@
                 class="form-control"
                 name="title"
                 maxlength="31"
-                size='24'
+                size="24"
                 required
             />
             <button class="btn-danger btn">Don't Forget</button>
@@ -37,18 +37,38 @@
             <li class="container">
                 <hr />
                 <div class="d-flex justify-content-between">
-                    <div><button class="btn-primary btn">edit</button></div>
+                    <form
+                        method="POST"
+                        action="{% url 'app:toggle_editing' todo.id %}"
+                    >
+                        {% csrf_token %}
+                        <button class="btn-primary btn">edit</button>
+                    </form>
+                    {% if todo.editing is True %}
+                    <form
+                        method="POST"
+                        action="{% url 'app:new-title' todo.id %}"
+                    >
+                        {% csrf_token %}
+                        <input
+                            type="text"
+                            name="title"
+                            maxlength="31"
+                            size="24"
+                            required
+                        />
+                        <button class="btn btn-primary">Done</button>
+                    </form>
+                    {% elif todo.editing is False %}
                     <p>{{ todo.title }}</p>
+                    {% endif %}
                     <form
                         method="POST"
                         action="{% url 'app:toggle_completed' todo.id %}"
                     >
-                        {% csrf_token %}
-                        {% if todo.completed is True %}
-                        <span>✔</span>
-                        {% elif todo.completed is False %}
-                        <span>✖</span>
-                        {% endif %}
+                        {% csrf_token %} {% if todo.completed is True %}
+                        <span>✔</span> {% elif todo.completed is False %}
+                        <span>✖</span> {% endif %}
                         <button class="btn-success btn">toggle complete</button>
                     </form>
                     <form method="POST" action="{% url 'app:delete' todo.id %}">
