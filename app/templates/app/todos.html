@@ -12,8 +12,12 @@
         />
         <title>Document</title>
     </head>
-    <body class='container'>
-        <form method="POST" action="{% url 'app:create' %}" class="d-flex container">
+    <body class="container">
+        <form
+            method="POST"
+            action="{% url 'app:create' %}"
+            class="d-flex container"
+        >
             {% csrf_token %}
             <input
                 type="text"
@@ -29,15 +33,22 @@
         <hr class="line-dividers" />
         <ul>
             {% for todo in todos %}
-            <li class='container'>
+            <li class="container">
                 <hr />
                 <div class="d-flex justify-content-between">
                     <div><button class="btn-primary btn">edit</button></div>
                     <p>{{ todo.title }}</p>
-                    <div class=''>
+                    <form
+                        method="POST"
+                        action="{% url 'app:toggle_completed' todo.id %}"
+                    >
+                        {% csrf_token %}
                         <button class="btn-success btn">toggle complete</button>
+                    </form>
+                    <form method="POST" action="{% url 'app:delete' todo.id %}">
+                        {% csrf_token %}
                         <button class="btn-danger btn">delete</button>
-                    </div>
+                    </form>
                 </div>
             </li>
             {% endfor %}
@@ -50,10 +61,9 @@
             opacity: 0.25;
         }
         li {
-            list-style: none
+            list-style: none;
         }
         ul {
-            
         }
     </style>
 </html>
