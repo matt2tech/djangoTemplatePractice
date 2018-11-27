@@ -13,22 +13,24 @@
         <title>Document</title>
     </head>
     <body class="container p-3">
-        <form
-            method="POST"
-            action="{% url 'app:create' %}"
-            class="d-flex container"
-        >
-            {% csrf_token %}
-            <input
-                type="text"
-                class="form-control"
-                name="title"
-                maxlength="31"
-                size="24"
-                required
-            />
-            <button class="btn-danger btn">Don't Forget</button>
-        </form>
+        <div class="container">
+            <form
+                method="POST"
+                action="{% url 'app:create' %}"
+                class="d-flex justify-content-around"
+            >
+                {% csrf_token %}
+                <input
+                    type="text"
+                    class="form-control"
+                    name="title"
+                    maxlength="31"
+                    size="24"
+                    required
+                />
+                <button class="btn-danger btn">Don't Forget</button>
+            </form>
+        </div>
         <hr class="line-dividers" />
 
         <hr class="line-dividers" />
@@ -48,6 +50,7 @@
                     <form
                         method="POST"
                         action="{% url 'app:new-title' todo.id %}"
+                        class="container"
                     >
                         {% csrf_token %}
                         <input
@@ -57,24 +60,31 @@
                             size="24"
                             required
                         />
-                        <button class="btn btn-primary">Done</button>
+                        <button class="btn btn-primary"><span class='border-bottom border-white'>⬇</span></button>
                     </form>
                     {% elif todo.editing is False %}
-                    <p>{{ todo.title }}</p>
+                    <p class="container">{{ todo.title }}</p>
                     {% endif %}
-                    <form
-                        method="POST"
-                        action="{% url 'app:toggle_completed' todo.id %}"
-                    >
-                        {% csrf_token %} {% if todo.completed is True %}
-                        <span>✔</span> {% elif todo.completed is False %}
-                        <span>✖</span> {% endif %}
-                        <button class="btn-success btn">toggle complete</button>
-                    </form>
-                    <form method="POST" action="{% url 'app:delete' todo.id %}">
-                        {% csrf_token %}
-                        <button class="btn-danger btn">delete</button>
-                    </form>
+                    <div class="container d-flex justify-content-around">
+                        <form
+                            method="POST"
+                            action="{% url 'app:toggle_completed' todo.id %}"
+                        >
+                            {% csrf_token %} {% if todo.completed is True %}
+                            <span>✔</span> {% elif todo.completed is False %}
+                            <span>✖</span> {% endif %}
+                            <button class="btn-success btn">
+                                toggle complete
+                            </button>
+                        </form>
+                        <form
+                            method="POST"
+                            action="{% url 'app:delete' todo.id %}"
+                        >
+                            {% csrf_token %}
+                            <button class="btn-danger btn">delete</button>
+                        </form>
+                    </div>
                 </div>
             </li>
             {% endfor %}
@@ -90,6 +100,7 @@
             list-style: none;
         }
         ul {
+            padding: 0;
         }
     </style>
 </html>
