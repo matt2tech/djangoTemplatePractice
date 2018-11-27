@@ -24,6 +24,7 @@
                 class="form-control"
                 name="title"
                 maxlength="31"
+                size='24'
                 required
             />
             <button class="btn-danger btn">Don't Forget</button>
@@ -43,6 +44,11 @@
                         action="{% url 'app:toggle_completed' todo.id %}"
                     >
                         {% csrf_token %}
+                        {% if todo.completed is True %}
+                        <span>✔</span>
+                        {% elif todo.completed is False %}
+                        <span>✖</span>
+                        {% endif %}
                         <button class="btn-success btn">toggle complete</button>
                     </form>
                     <form method="POST" action="{% url 'app:delete' todo.id %}">
